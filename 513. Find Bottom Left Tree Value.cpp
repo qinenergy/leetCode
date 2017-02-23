@@ -8,16 +8,18 @@ struct TreeNode {
 class Solution2 {
 public:
 	int findBottomLeftValue(TreeNode* root) {
-
+		int layer = 0;
+		TreeNode* leaf = dfs(root, layer);
+		return leaf->val;
 	}
 
 	TreeNode* dfs(TreeNode* root, int& layer){
-		if(root==nullptr){
-			layer = 0;
-			return nullptr;
-		}
-		int ll=layer, lr=layer;
+		int ll=layer + 1, lr=layer + 1;
 		TreeNode* lLeaf(nullptr), *rLeaf(nullptr);
+		if(root->left==nullptr && root->right==nullptr)	{
+			++layer;
+			return root;
+		}
 		if(root->left!=nullptr)	lLeaf = dfs(root->left, ll);
 		if(root->right!=nullptr) rLeaf = dfs(root->right, lr);
 		if(ll >= lr){
