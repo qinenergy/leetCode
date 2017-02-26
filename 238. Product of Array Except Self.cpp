@@ -13,7 +13,7 @@ public:
         	rst[i] = last * rst[i + 1];
         	last = last * nums[i];
         }
-        rst[len - 1] = lst;
+        rst[len - 1] = last;
         return rst;
     }
 };
