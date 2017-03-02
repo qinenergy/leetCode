@@ -26,3 +26,31 @@ public:
         return res;
     }
 };
+
+class Solution2 {
+public:
+	int threeSumClosest(vector<int>& nums, int target) {
+		int rst, sum, diff, minDiff = INT_MAX;
+		int len = nums.size();
+		if(len < 3)	throw new runtime_error("invalid");
+		sort(nums.begin(), nums.end());
+		int start = 0, mid = 1, end = len - 1;
+		for(start = 0; start < len - 2; ++start){
+			mid = start + 1;
+			end = len - 1;
+			while(mid < end){
+				sum = nums[start] + nums[mid] + nums[end];
+				diff = sum - target;
+				if(minDiff > abs(diff)){
+					minDiff = abs(diff);
+					rst = sum;
+				}
+				if(diff == 0)	return rst;
+				else if(diff > 0)	--end;
+				else	++mid;
+			}
+		}
+		return rst;
+	}	
+};
+

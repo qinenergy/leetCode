@@ -35,3 +35,43 @@ public:
         return res;
     }
 };
+
+class Solution2 {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> rst;
+        int len = nums.size(), sum;
+        if(len < 4) return rst;
+        int i, j, k, l;
+        sort(nums.begin(), nums.end());
+        for(i = 0; i < len - 3;){
+            for(j = i + 1; j < len - 2;){
+                k = j + 1;
+                l = len - 1;
+                while(k < l){
+                    sum = nums[i] + nums[j] + nums[k] + nums[l];
+                    if(sum == target){
+                        rst.push_back({nums[i], nums[j], nums[k], nums[l]});
+                        --l;
+                        while(k < l && nums[l] == nums[l + 1]) --l;
+                        ++k;
+                        while(k < l && nums[k] == nums[k - 1]) ++k;
+                    }
+                    else if(sum < target){
+                        ++k;
+                        while(k < l && nums[k] == nums[k - 1]) ++k;
+                    }
+                    else{
+                        --l;
+                        while(k < l && nums[l] == nums[l + 1]) --l;
+                    }
+                }
+                ++j;
+                while(j < len - 2 && nums[j] == nums[j - 1]) ++j;
+            }
+            ++i;
+            while(i < len - 3 && nums[i] == nums[i - 1]) ++i;
+        }
+        return rst;
+    }
+};
