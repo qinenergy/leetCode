@@ -18,3 +18,20 @@ public:
         }
     }
 };
+
+class Solution2 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int len = nums.size();
+        if(len == 0)	return {};
+        map<int, int> m;
+        for(int i = 0; i < len; ++i)
+        	m.insert({nums[i], i});
+        for(int i = 0; i < len; ++i){
+        	auto it = m.find(target - nums[i]);
+        	if(it != m.end() && it->second != i)
+        		return {i, it->second};
+        }
+        return {};
+    }
+};
