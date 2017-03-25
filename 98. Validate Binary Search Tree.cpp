@@ -1,22 +1,14 @@
 class Solution2 {
 public:
     bool isValidBST(TreeNode* root) {
-    	return isValidBST(root, INT_MAX, INT_MIN);
+        TreeNode* prev = NULL;
+        return validate(root, prev);
     }
-    bool isValidBST(TreeNode* root, int M, int m){
-    	if(!root)	return true;
-    	if(root->val >= M || root->val <= m)	return false;
-    	if(!root->left){
-    		if(!root->right)	return true;
-    		return isValidBST(root->right, M, max(root->val, m));
-    	}
-    	if(!root->right){
-    		if(!root->left)	return true;
-    		return isValidBST(root->left, min(root->val, M), m);
-    	}
-    	return root->left->val < root->val &&
-    		root->right->val > root->val &&
-    		isValidBST(root->left, min(root->val, M), m) &&
-    		isValidBST(root->right, M, max(root->val, m));
+    bool isValidBST(TreeNode* node, TreeNode* &prev) {
+        if (node == NULL) return true;
+        if (!isValidBST(node->left, prev)) return false;
+        if (prev != NULL && prev->val >= node->val) return false;
+        prev = node;
+        return isValidBST(node->right, prev);
     }
 };
