@@ -1,6 +1,6 @@
-class NumArray {
+class NumArray2 {
 public:
-    NumArray(vector<int> nums) {
+    NumArray2(vector<int> nums) {
         _len = nums.size();
         _acc = vector<int>(_len + 1, 0);
         for(int i = 0; i < _len; ++i)
@@ -17,11 +17,11 @@ private:
     int _len;
 };
 
-class Solution {
+class Solution2 {
 public:
     bool PredictTheWinner(vector<int>& nums) {
         int len = nums.size();    
-        auto rs = NumArray(nums);
+        auto rs = NumArray2(nums);
         vector<vector<int>> dp(len, vector<int>(len , 0));
         for(int i = 0; i < len; ++i)
             dp[i][i] = nums[i];
