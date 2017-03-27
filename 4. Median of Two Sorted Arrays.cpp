@@ -20,8 +20,28 @@ public:
 };
 class Solution2 {
 public:
+    double findK(vector<int>& nums1, int s1, int len1, vector<int>& nums2, int s2, int len2, int k){
+        if(len1 - s1 > len2 - s2)   
+            return findK(nums2, s2, len2, nums1, s1, len1, k);
+        else if(s1 == len1)  
+            return nums2[s2 + k - 1];
+        else if(k == 1) 
+            return min(nums1[s1], nums2[s2]);
+        int ind1 = min(k / 2, len1 - s1);
+        int ind2 = k - ind1;
+        if(nums1[s1 + ind1 - 1] < nums2[s2 + ind2 - 1])
+            return findK(nums1, s1 + ind1, len1, nums2, s2, len2, k - ind1);
+        else if(nums1[s1 + ind1 - 1] > nums2[s2 + ind2 - 1]) 
+            return findK(nums1, s1, len1, nums2, s2 + ind2, len2, k - ind2);
+        else
+            return nums1[s1 + ind1 - 1];
+    }
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        cout << "No idea right now T_T" << endl;
-        return -1.0;
+        int len1 = nums1.size(), len2 = nums2.size();
+        int mid = (len1 + len2)/2;
+        if((len1 + len2) % 2 == 0)   
+            return (findK(nums1, 0, len1, nums2, 0, len2, mid) + findK(nums1, 0, len1, nums2, 0, len2, mid + 1)) / 2;
+        else
+            return findK(nums1, 0, len1, nums2, 0, len2, mid + 1);
     }
 };
