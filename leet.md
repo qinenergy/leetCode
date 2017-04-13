@@ -22,3 +22,8 @@ Floyd 龟兔算法： 给定p型序列，线性时间，常数空间寻找环起
 
 2. x[slow+c] = x[c]
 
+
+## 4. Median of two sorted arrays
+
+==> find kth smallest number of two sorted arrays
+
