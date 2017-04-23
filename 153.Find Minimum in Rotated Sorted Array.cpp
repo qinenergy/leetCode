@@ -21,3 +21,20 @@ public:
         
     }
 };
+
+class Solution2 {
+public:
+    int findMin(vector<int>& nums) {
+        int len = nums.size();
+        if(len == 0)    return INT_MIN;
+        int lo(0), hi(len - 1), mid;
+        while(lo <= hi){
+            mid = (lo + hi) >> 1;
+            if(nums[lo] <= nums[hi]) return nums[lo];
+            else{
+                if(nums[mid] >= nums[lo])    lo = mid + 1;
+                else    hi = mid;
+            }
+        }
+    }
+};
