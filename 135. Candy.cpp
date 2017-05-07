@@ -13,14 +13,42 @@ public:
 
 class Solution2 {
 public:
-    int candy(vector<int>& ratings) {
+    /*
+     *  o(N) time & o(N) space
+     *  int candy(vector<int>& ratings) {
+     *      int num = ratings.size();
+     *      if(num <= 1)    return num;
+     *      vector<int> candies(num, 1);
+     *      for(int i = 1; i < num; ++i)
+     *          if(ratings[i] > ratings[i - 1]) candies[i] = candies[i - 1] + 1;
+     *      for(int i = num - 2; i >= 0; --i)
+     *          if(ratings[i] > ratings[i + 1]) candies[i] = max(candies[i], candies[i + 1] + 1);
+     *      return accumulate(candies.begin(), candies.end(), 0);
+     *  }
+     */
+
+     // o(N) time & o(1) space
+     int candy(vector<int>& ratings) {
         int num = ratings.size();
         if(num <= 1)    return num;
-        vector<int> candies(num, 1);
-        for(int i = 1; i < num; ++i)
-            if(ratings[i] > ratings[i - 1]) candies[i] = candies[i - 1] + 1;
-        for(int i = num - 2; i >= 0; --i)
-            if(ratings[i] > ratings[i + 1]) candies[i] = max(candies[i], candies[i + 1] + 1);
-        return accumulate(candies.begin(), candies.end(), 0);
-    }
+        int total = 1, prev = 1, count = 0;
+        for(int i = 1; i < num; ++i){
+            if(ratings[i] >= ratings[i - 1]){
+                if(count > 0){
+                    total += (count * (count + 1) / 2);
+                    if(count >= prev)   total += count - prev + 1;
+                    count = 0;
+                    prev = 1;
+                }   
+                prev = (ratings[i] == ratings[i - 1]) ? 1 : prev + 1;
+                total += prev;
+            }
+            else ++count;
+        }
+        if(count > 0){
+            total += (count * (count + 1) / 2);
+            if(count >= prev)   total += count - prev + 1;
+        }
+        return total;
+     }
 };
