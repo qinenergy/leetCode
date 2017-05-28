@@ -23,7 +23,7 @@ public:
             auto& gi = grid[i];
             for(int j = 0; j < cols; ++j){
                 if(gi[j] == '0' || vi[j])   continue;
-                traverse(grid, visited, i, j, row, cols);
+                traverse(grid, visited, i, j, rows, cols);
                 ++num;
             }
         }
